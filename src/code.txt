@@ -1,0 +1,17 @@
+Last updated: 2026-08-14T14:37:23
+
+Files (5):
+  App.css
+  App.tsx
+  code.txt
+  index.css
+  main.tsx
+
+Subdirectories (7):
+  assets
+  lib
+  pages
+  prompts
+  stores
+  styles
+  types

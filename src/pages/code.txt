@@ -1,0 +1,12 @@
+Last updated: 2026-08-14T14:37:24
+
+Files (6):
+  Accusation.tsx
+  CaseBriefing.tsx
+  Home.tsx
+  Investigation.tsx
+  Verdict.tsx
+  code.txt
+
+Subdirectories (0):
+  (none)

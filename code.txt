@@ -1,0 +1,23 @@
+Last updated: 2026-08-14T14:31:17
+
+Files (14):
+  .env
+  .gitignore
+  README.md
+  change_log.txt
+  code.txt
+  code_history_log.txt
+  eslint.config.js
+  index.html
+  package-lock.json
+  package.json
+  tsconfig.app.json
+  tsconfig.json
+  tsconfig.node.json
+  vite.config.ts
+
+Subdirectories (4):
+  dist
+  node_modules
+  public
+  src

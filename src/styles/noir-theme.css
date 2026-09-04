@@ -1,0 +1,492 @@
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@500;600;700&family=Special+Elite&display=swap');
+
+:root {
+  --bg: #0a0e1a;
+  --panel-bg: #1a1f2e;
+  --surface: #1e2538;
+  --surface-accent: #252d42;
+  --border: #38425d;
+  --manila: #eae1cb;
+  --manila-dark: #c0ab88;
+  
+  --police-yellow: #f4a942;       /* Amber / Gold */
+  --police-yellow-glow: rgba(244, 169, 66, 0.25);
+  
+  --blood-red: #8b0000;           /* Blood Red */
+  --blood-red-glow: rgba(139, 0, 0, 0.45);
+  
+  --neon-green: #00ff88;          /* Neon Green */
+  --neon-green-glow: rgba(0, 255, 136, 0.3);
+  
+  --text: #e2e8f0;                /* Slate Light */
+  --text-dim: #94a3b8;            /* Slate Dim */
+  --text-dark: #1e293b;
+  
+  --font-title: 'Orbitron', sans-serif;
+  --font-header: 'Rajdhani', sans-serif;
+  --font-narrative: 'Courier New', Courier, monospace;
+  --font-ui: 'Courier New', Courier, monospace;
+  --font-typewriter: 'Courier New', Courier, monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg);
+  background-image: 
+    radial-gradient(circle at center, transparent 30%, #05070d 100%),
+    repeating-linear-gradient(0deg, rgba(0,0,0,0.12) 0px, rgba(0,0,0,0.12) 1px, transparent 1px, transparent 2px);
+  background-size: 100% 100%, 100% 4px;
+  color: var(--text);
+  font-family: var(--font-ui);
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Pulsing red alert for low time */
+.low-time-pulse {
+  animation: lowTimePulse 1s infinite alternate;
+}
+
+@keyframes lowTimePulse {
+  0% { box-shadow: 0 0 4px var(--blood-red-glow); background: rgba(139, 0, 0, 0.05); }
+  100% { box-shadow: 0 0 16px rgba(139,0,0,0.5); background: rgba(139, 0, 0, 0.2); }
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--police-yellow);
+}
+
+/* Rain Effect - css only */
+.rain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    transparent,
+    transparent 55px,
+    rgba(244, 169, 66, 0.02) 55px,
+    rgba(244, 169, 66, 0.02) 57px
+  );
+  animation: rainDrop 1.8s linear infinite;
+  z-index: 9999;
+  opacity: 0.75;
+}
+
+@keyframes rainDrop {
+  0% { transform: translateY(-100px); }
+  100% { transform: translateY(100vh); }
+}
+
+/* Vignette Shadow Overlay */
+.vignette {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: radial-gradient(circle, transparent 40%, rgba(5,7,13,0.95) 100%);
+  z-index: 9998;
+}
+
+/* Film Grain Overlay */
+.grain-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9997;
+}
+
+/* Typography classes */
+.font-narrative {
+  font-family: var(--font-narrative);
+}
+.font-typewriter {
+  font-family: var(--font-typewriter);
+}
+
+.typewriter-text {
+  font-family: var(--font-narrative);
+}
+
+.glow-text-yellow {
+  color: var(--police-yellow);
+  text-shadow: 0 0 8px var(--police-yellow-glow);
+}
+
+.glow-text-red {
+  color: var(--blood-red);
+  text-shadow: 0 0 8px var(--blood-red-glow);
+}
+
+/* Glass Panels */
+.glass-panel {
+  background-color: var(--panel-bg);
+  border: 1px solid var(--border) !important;
+  border-radius: 4px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+}
+
+.glass-panel-heavy {
+  background-color: var(--bg);
+  border: 2px solid var(--border) !important;
+  border-radius: 6px;
+  box-shadow: 0 12px 48px 0 rgba(0, 0, 0, 0.6);
+}
+
+/* Manila Folder / Dossier representation */
+.folder {
+  background-color: var(--manila);
+  color: var(--text-dark);
+  padding: 3rem 2.5rem;
+  border-radius: 4px;
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.8),
+    inset 0 0 40px rgba(0, 0, 0, 0.08);
+  position: relative;
+  border: 1px solid var(--manila-dark);
+  font-family: var(--font-typewriter);
+}
+
+.folder::before {
+  content: 'CONFIDENTIAL CASE DOSSIER';
+  position: absolute;
+  top: -24px;
+  left: 20px;
+  background-color: var(--manila);
+  color: var(--blood-red);
+  font-family: var(--font-title);
+  font-weight: bold;
+  font-size: 0.8rem;
+  padding: 6px 16px;
+  border-radius: 4px 4px 0 0;
+  border: 1px solid var(--manila-dark);
+  border-bottom: none;
+  letter-spacing: 0.1em;
+}
+
+/* Interrogation / Terminal chat sheets */
+.crt-terminal {
+  background-color: #0b0f19;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--font-typewriter);
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+  border-radius: 4px;
+}
+
+.crt-terminal::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: 
+    linear-gradient(rgba(18, 22, 35, 0) 50%, rgba(0, 0, 0, 0.15) 50%), 
+    linear-gradient(90deg, rgba(244, 169, 66, 0.015), rgba(0, 255, 136, 0.01), rgba(139, 0, 0, 0.015));
+  z-index: 2;
+  background-size: 100% 4px, 6px 100%;
+  pointer-events: none;
+}
+
+/* Dialogue Bubbles */
+.dialogue-detective {
+  background: var(--surface-accent);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 8px 8px 0px 8px;
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  max-width: 85%;
+  align-self: flex-end;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+  margin-left: auto;
+}
+
+.dialogue-suspect {
+  background: #111827;
+  border: 1px solid var(--police-yellow);
+  color: var(--police-yellow);
+  border-radius: 8px 8px 8px 0px;
+  padding: 10px 14px;
+  font-family: var(--font-typewriter);
+  font-size: 0.88rem;
+  max-width: 85%;
+  align-self: flex-start;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+}
+
+/* Interrogation stress indicator */
+.stress-bar-container {
+  width: 100%;
+  height: 6px;
+  background: var(--surface);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 4px;
+  border: 1px solid var(--border);
+}
+.stress-bar {
+  height: 100%;
+  background: linear-gradient(to right, var(--police-yellow), var(--blood-red));
+  transition: width 0.3s ease;
+}
+
+/* UI Buttons */
+.btn-primary {
+  background-color: var(--police-yellow);
+  color: var(--bg);
+  border: 1px solid var(--police-yellow);
+  padding: 10px 20px;
+  font-family: var(--font-header);
+  font-weight: bold;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  transition: all 0.25s ease;
+  text-transform: uppercase;
+  border-radius: 4px;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #f7b966;
+  box-shadow: 0 0 12px var(--police-yellow-glow);
+  transform: translateY(-1px);
+}
+
+.btn-primary:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.btn-danger {
+  background-color: var(--blood-red);
+  color: #fff;
+  border: 1px solid var(--blood-red);
+  padding: 10px 20px;
+  font-family: var(--font-header);
+  font-weight: bold;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  transition: all 0.25s ease;
+  text-transform: uppercase;
+  border-radius: 4px;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: #a30000;
+  box-shadow: 0 0 12px var(--blood-red-glow);
+  transform: translateY(-1px);
+}
+
+.btn-danger:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 10px 20px;
+  font-family: var(--font-header);
+  font-weight: bold;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  transition: all 0.25s ease;
+  border-radius: 4px;
+}
+
+.btn-secondary:hover {
+  background: var(--surface-accent);
+  border-color: var(--text-dim);
+}
+
+/* Corkboard Evidence visualizer */
+.evidence-board {
+  width: 100%;
+  height: 100%;
+  background-color: #121622;
+  background-image: 
+    radial-gradient(rgba(244, 169, 66, 0.05) 1px, transparent 0),
+    radial-gradient(rgba(244, 169, 66, 0.03) 2px, transparent 0);
+  background-size: 24px 24px, 48px 48px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+/* Custom flow node designs - Polaroid & Post-It */
+.flow-node-suspect {
+  background: #fdfefe;
+  border: 6px solid #fff;
+  border-bottom: 20px solid #fff;
+  border-radius: 1px;
+  box-shadow: 3px 5px 12px rgba(0,0,0,0.5);
+  width: 110px;
+  color: var(--text-dark);
+  text-align: center;
+  transition: all 0.2s ease;
+  cursor: grab;
+  transform: rotate(-1deg);
+}
+
+.flow-node-suspect::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: var(--blood-red);
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.4);
+  z-index: 10;
+}
+
+.flow-node-suspect:active {
+  cursor: grabbing;
+  transform: scale(1.03) rotate(0deg);
+}
+
+.flow-node-evidence {
+  background: #fdf9e2;
+  border: 1px solid #dcd7b5;
+  box-shadow: 2px 3px 8px rgba(0,0,0,0.3);
+  padding: 8px;
+  width: 140px;
+  color: #3b3524;
+  font-family: var(--font-typewriter);
+  font-size: 0.7rem;
+  border-radius: 1px;
+  position: relative;
+  transform: rotate(1deg);
+  transition: all 0.2s ease;
+}
+
+.flow-node-evidence::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 12px;
+  width: 6px;
+  height: 6px;
+  background: #2471a3;
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  z-index: 10;
+}
+
+.flow-node-evidence.analyzed-node {
+  background: #d5f5e3;
+  border-color: #abebc6;
+  color: #196f3d;
+}
+
+/* React Flow threads */
+.react-flow__edge-path {
+  stroke: var(--blood-red);
+  stroke-width: 3;
+  filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.5));
+}
+
+.react-flow__connection-path {
+  stroke: var(--blood-red);
+  stroke-width: 3;
+  stroke-dasharray: 4;
+}
+
+/* Skeletal Loading states */
+.skeleton-loading {
+  background: linear-gradient(90deg, var(--surface) 25%, var(--surface-accent) 50%, var(--surface) 75%);
+  background-size: 200% 100%;
+  animation: loadingPulse 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes loadingPulse {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Flickering CSS lamps */
+.flicker-lamp {
+  animation: lampFlicker 4s infinite alternate;
+}
+
+@keyframes lampFlicker {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+    opacity: 0.99;
+    filter: drop-shadow(0 0 6px rgba(244,169,66,0.35));
+  }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+    opacity: 0.45;
+    filter: drop-shadow(0 0 1px rgba(244,169,66,0.05));
+  }
+}
+
+/* Pulsing Red Dot */
+.pulsing-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--blood-red);
+  box-shadow: 0 0 0 0 var(--blood-red-glow);
+  animation: pulseDot 1.4s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+
+@keyframes pulseDot {
+  0% { box-shadow: 0 0 0 0 rgba(139,0,0,0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(139,0,0,0); }
+  100% { box-shadow: 0 0 0 0 rgba(139,0,0,0); }
+}
+
+/* Custom terminal inputs */
+.terminal-input-container {
+  display: flex;
+  gap: 8px;
+  background: rgba(0,0,0,0.15);
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+.terminal-input-field {
+  flex: 1;
+  padding: 8px 12px;
+  background: #070a12;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--font-ui);
+  border-radius: 4px;
+  outline: none;
+  font-size: 0.85rem;
+}
+
+.terminal-input-field:focus {
+  border-color: var(--police-yellow);
+  box-shadow: 0 0 5px var(--police-yellow-glow);
+}
